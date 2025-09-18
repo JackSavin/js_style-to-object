@@ -13,7 +13,8 @@ function convertToObject(sourceString) {
     .filter(Boolean)
     .map((style) => style.split(':'))
     .filter((style) => style[1] !== undefined)
-    .map(([key, value]) => [key.trim(), value.trim()]);
+    .map(([key, value]) => [key.trim(), value.trim()])
+    .filter(([key, value]) => key.length > 0 && value.length > 0);
 
   return Object.fromEntries(styles);
 }
