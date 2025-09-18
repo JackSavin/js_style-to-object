@@ -11,10 +11,19 @@ function convertToObject(sourceString) {
     .trim()
     .split(';')
     .filter(Boolean)
-    .map((style) => style.split(':'))
-    .filter((style) => style[1] !== undefined)
-    .map(([key, value]) => [key.trim(), value.trim()])
-    .filter(([key, value]) => key.length > 0 && value.length > 0);
+    .map((style) => {
+      const index = style.indexOf(':');
+
+      if (index === -1) {
+        return;
+      }
+
+      const key = style.slice(0, index).trim();
+      const value = style.slice(index + 1).trim();
+
+      return [key, value];
+    })
+    .filter(Boolean);
 
   return Object.fromEntries(styles);
 }
